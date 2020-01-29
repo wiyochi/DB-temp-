@@ -11,3 +11,17 @@ END;
 /
 
 /*exec createdept_zangla(12, 'TEst', 'Aubiere');*/
+
+CREATE OR REPLACE FUNCTION salok_zangla(jobselect in VARCHAR2, salaire in NUMBER) RETURN NUMBER 
+IS
+	j VARCHAR2(9);
+	mi NUMBER;
+	ma NUMBER;
+BEGIN
+	SELECT job, lsal, hsal INTO j, mi, ma FROM salintervalle_f2 WHERE mi <= salaire AND ma >= salaire;
+	RETURN 1; 
+	EXCEPTION WHEN NO_DATA_FOUND THEN RETURN 0;
+END;
+/
+
+select salok_zangla(job, 2800) FROM salintervalle_f2;
