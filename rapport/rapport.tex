@@ -1,0 +1,255 @@
+\documentclass{article}
+
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{mathptmx}
+\usepackage{anyfontsize}
+\usepackage{t1enc}
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{titlesec}
+\usepackage{titling}
+\usepackage{graphicx}
+
+\newcommand{\changeurlcolor}[1]{\hypersetup{urlcolor=#1}}
+
+\renewcommand\maketitlehooka{\null\mbox{}\vfill}
+\renewcommand\maketitlehookd{\vfill\null}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\definecolor{codekeywords}{rgb}{0.1,0.53,0.92}
+
+\lstdefinestyle{c++}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{codekeywords},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    texcl=false,
+    inputencoding=utf8,
+    extendedchars=true,
+    literate=
+  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\EUR}}1 {£}{{\pounds}}1,
+}
+\lstset{style=c++}
+
+
+\title{Développement des Bases de Données}
+\author{Arquillière Mathieu}
+
+\begin{document}
+
+\begin{titlepage}
+  \maketitle
+\end{titlepage}
+
+\newpage
+
+\section{TP1}
+
+\subsection{Exercice 1}
+Code :
+\begin{lstlisting}[language=SQL,
+    morekeywords={DECLARE, LOOP, TYPE, FOR, IF, IS, OPEN, FETCH, DBMS_OUTPUT, PUT_LINE}]
+DECLARE
+    nom emp.ename%TYPE;
+    salaire emp.sal%TYPE;
+    commission emp.comm%TYPE;
+    departement dept.dname%TYPE;
+BEGIN 
+    SELECT ename,sal,comm,dname INTO nom,salaire,commission,departement FROM Emp NATURAL JOIN Dept
+    WHERE ename='MILLER';
+    DBMS_OUTPUT.PUT_LINE('Nom : ' || nom || ' Salaire : ' || salaire || ' Commission : ' || commission || 'Departement : ' || departement);
+END;
+/
+\end{lstlisting}
+
+Résultat :
+\begin{lstlisting}[language=SQL,
+    morekeywords={DECLARE, LOOP, TYPE, FOR, IF, IS, OPEN, FETCH, DBMS_OUTPUT, PUT_LINE}]
+\end{lstlisting}
+
+\subsection{Exercice 2}
+Code :
+\begin{lstlisting}[language=SQL,
+    deletekeywords={char},
+    morekeywords={DECLARE, LOOP, TYPE, FOR, IF, IS, OPEN, FETCH, DBMS_OUTPUT, PUT_LINE}]
+DECLARE
+    num1 temp.num_col1%TYPE;
+    num2 temp.num_col2%TYPE;
+    char temp.char_col%TYPE;
+BEGIN
+	FOR i IN 1..10 LOOP
+		IF MOD(i, 2) = 0 THEN
+			INSERT INTO temp VALUES (i, i * 100, CONCAT(TO_CHAR(i), ' est pair'));
+		ELSE
+			INSERT INTO temp VALUES (i, i * 100, CONCAT(TO_CHAR(i), ' est impair'));
+		END IF;
+	END LOOP;
+	COMMIT;
+END;
+/
+\end{lstlisting}
+
+Résultat :
+\begin{lstlisting}[language=SQL,
+    morekeywords={DECLARE, LOOP, TYPE, FOR, IF, IS, OPEN, FETCH, DBMS_OUTPUT, PUT_LINE}]
+\end{lstlisting}
+
+\subsection{Exercice 3}
+Code :
+\begin{lstlisting}[language=SQL,
+    deletekeywords={char},
+    morekeywords={DECLARE, LOOP, TYPE, FOR, IF, IS, OPEN, FETCH, DBMS_OUTPUT, PUT_LINE}]
+DECLARE
+	Cursor c IS SELECT sal, empno, ename FROM emp ORDER BY sal DESC;
+	salaire emp.sal%TYPE;
+	numero emp.empno%TYPE;
+	nom emp.ename%TYPE;
+BEGIN
+	OPEN c;
+	FOR i IN 1..5 LOOP
+		FETCH c INTO salaire, numero, nom;
+		INSERT INTO temp VALUES (salaire, numero, nom);
+	END LOOP;
+END;
+/
+\end{lstlisting}
+
+Résultat :
+\begin{lstlisting}[language=SQL,
+    morekeywords={DECLARE, LOOP, TYPE, FOR, IF, IS, OPEN, FETCH, DBMS_OUTPUT, PUT_LINE}]
+\end{lstlisting}
+
+\subsection{Exercice 4}
+Code :
+\begin{lstlisting}[language=SQL,
+    deletekeywords={char},
+    morekeywords={DECLARE, LOOP, TYPE, FOR, IF, IS, OPEN, FETCH, DBMS_OUTPUT, PUT_LINE}]
+DECLARE
+    Cursor c IS SELECT UNIQUE sal, NVL(comm, 0), empno, ename FROM emp WHERE sal + NVL(comm, 0) > 2000;
+    salaire emp.sal%TYPE;
+    numero emp.empno%TYPE;
+    nom emp.ename%TYPE;
+    comm emp.comm%TYPE;
+BEGIN
+	OPEN c;
+	LOOP
+		FETCH c INTO salaire, comm, numero, nom;
+		INSERT INTO temp VALUES (salaire + comm, numero, nom);
+		EXIT WHEN (c%notfound);
+	END LOOP;
+END;
+/
+\end{lstlisting}
+
+Résultat :
+\begin{lstlisting}[language=SQL,
+    morekeywords={DECLARE, LOOP, TYPE, FOR, IF, IS, OPEN, FETCH, DBMS_OUTPUT, PUT_LINE}]
+\end{lstlisting}
+
+\subsection{Exercice 5}
+Code :
+\begin{lstlisting}[language=SQL,
+    deletekeywords={char},
+    morekeywords={DECLARE, LOOP, TYPE, FOR, IF, IS, OPEN, FETCH, DBMS_OUTPUT, PUT_LINE}]
+DECLARE
+	Cursor c IS SELECT sal, ename, empno, mgr FROM emp;
+	salaire emp.sal%TYPE;
+	nom emp.ename%TYPE;
+	empno emp.empno%TYPE;
+	mgrEmp emp.mgr%TYPE;
+	chaineMgr emp.mgr%TYPE;
+BEGIN
+	OPEN c;
+	LOOP
+		FETCH c INTO salaire, nom, empno, mgrEmp;
+		EXIT WHEN(c%NOTFOUND);
+		IF salaire >= 4000 THEN
+			DBMS_OUTPUT.PUT_LINE('Salaire: ' || salaire || ' Nom: ' || nom || ' no: ' || empno || ' mgr: ' || mgrEmp);
+			SELECT mgr INTO chaineMgr FROM emp WHERE empno=7902;
+			LOOP
+				EXIT WHEN(chaineMgr IS NULL OR chaineMgr=mgrEmp);
+				SELECT mgr INTO chaineMgr FROM emp where empno=chaineMgr;
+			END LOOP;
+			IF chaineMgr=mgrEmp OR mgrEmp IS NULL THEN
+				INSERT INTO temp VALUES (null, salaire, nom);
+			END IF;
+		END IF;
+	END LOOP;
+END;
+/
+\end{lstlisting}
+
+Résultat :
+\begin{lstlisting}[language=SQL,
+    morekeywords={DECLARE, LOOP, TYPE, FOR, IF, IS, OPEN, FETCH, DBMS_OUTPUT, PUT_LINE}]
+\end{lstlisting}
+
+\newpage
+\section{TP2}
+\subsection{Exercice 1}
+Code :
+\begin{lstlisting}[language=SQL,
+    deletekeywords={char},
+    morekeywords={DECLARE, LOOP, TYPE, FOR, IF, IS, OPEN, FETCH, DBMS_OUTPUT, PUT_LINE}]
+CREATE OR REPLACE PROCEDURE createdept_zangla(num IN NUMBER, name IN VARCHAR2, loc IN VARCHAR2)
+IS
+    d NUMBER;
+BEGIN
+    SELECT deptno INTO d FROM dept WHERE deptno = num;
+    RAISE_APPLICATION_ERROR(-20001, 'Numero de departement deja existant');
+    EXCEPTION 
+        WHEN NO_DATA_FOUND THEN
+            INSERT INTO dept VALUES(num, name, loc);
+END;
+/
+
+/*exec createdept_zangla(12, 'TEst', 'Aubiere');*/
+
+CREATE OR REPLACE FUNCTION salok_zangla(jobselect in VARCHAR2, salaire in NUMBER) RETURN NUMBER 
+IS
+    j VARCHAR2(9);
+    mi NUMBER;
+    ma NUMBER;
+BEGIN
+    SELECT job, lsal, hsal INTO j, mi, ma FROM salintervalle_f2 WHERE mi <= salaire AND ma >= salaire;
+    RETURN 1; 
+    EXCEPTION WHEN NO_DATA_FOUND THEN RETURN 0;
+END;
+/
+
+select salok_zangla(job, 2800) FROM salintervalle_f2;
+\end{lstlisting}
+
+Résultat :
+\begin{lstlisting}[language=SQL,
+    morekeywords={DECLARE, LOOP, TYPE, FOR, IF, IS, OPEN, FETCH, DBMS_OUTPUT, PUT_LINE}]
+\end{lstlisting}
+\end{document}
