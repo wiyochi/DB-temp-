@@ -1,0 +1,27 @@
+## Déjà existant ##
+SQL> exec createdept_zangla(30, 'SALES', 'CHICAGO');
+BEGIN createdept_zangla(30, 'SALES', 'CHICAGO'); END;
+
+*
+ERREUR a la ligne 1 :
+ORA-20001: Numero de departement deja existant
+ORA-06512: a "BD10.CREATEDEPT_ZANGLA", ligne 6
+ORA-06512: a ligne 1
+
+
+## Ajout ##
+SQL> exec createdept_zangla(16, 'VACHE', 'GUERET');
+
+Procedure PL/SQL terminee avec succes.
+
+SQL> select * from dept;
+
+DEPTNO 	    DNAME	      LOC
+---------- -------------- -------------
+	10 		ACCOUNTING	  NEW YORK
+	20 		RESEARCH	  DALLAS
+	30 		SALES	      CHICAGO
+	16 		VACHE	      GUERET
+
+
+

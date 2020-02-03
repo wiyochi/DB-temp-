@@ -93,6 +93,7 @@ END;
 Résultat :
 \begin{lstlisting}[language=SQL,
     morekeywords={DECLARE, LOOP, TYPE, FOR, IF, IS, OPEN, FETCH, DBMS_OUTPUT, PUT_LINE}]
+Nom : MILLER Salaire : 1300 Commission : Departement : ACCOUNTING
 \end{lstlisting}
 
 \subsection{Exercice 2}
@@ -120,6 +121,21 @@ END;
 Résultat :
 \begin{lstlisting}[language=SQL,
     morekeywords={DECLARE, LOOP, TYPE, FOR, IF, IS, OPEN, FETCH, DBMS_OUTPUT, PUT_LINE}]
+SQL> select * from temp;
+
+  NUM_COL1   NUM_COL2 CHAR_COL
+---------- ---------- -------------------------------------------------------
+		 5000 KING
+	 1	  100 1 est impair
+	 2	  200 2 est pair
+	 3	  300 3 est impair
+	 4	  400 4 est pair
+	 5	  500 5 est impair
+	 6	  600 6 est pair
+	 7	  700 7 est impair
+	 8	  800 8 est pair
+	 9	  900 9 est impair
+	10	 1000 10 est pair
 \end{lstlisting}
 
 \subsection{Exercice 3}
@@ -145,6 +161,15 @@ END;
 Résultat :
 \begin{lstlisting}[language=SQL,
     morekeywords={DECLARE, LOOP, TYPE, FOR, IF, IS, OPEN, FETCH, DBMS_OUTPUT, PUT_LINE}]
+SQL> select * from temp;
+
+  NUM_COL1   NUM_COL2 CHAR_COL
+---------- ---------- -------------------------------------------------------
+      5000	 7839 KING
+      3000	 7902 FORD
+      3000	 7788 SCOTT
+      2975	 7566 JONES
+      2850	 7698 BLAKE
 \end{lstlisting}
 
 \subsection{Exercice 4}
@@ -162,8 +187,8 @@ BEGIN
 	OPEN c;
 	LOOP
 		FETCH c INTO salaire, comm, numero, nom;
-		INSERT INTO temp VALUES (salaire + comm, numero, nom);
 		EXIT WHEN (c%notfound);
+		INSERT INTO temp VALUES (salaire + comm, numero, nom);
 	END LOOP;
 END;
 /
@@ -172,6 +197,18 @@ END;
 Résultat :
 \begin{lstlisting}[language=SQL,
     morekeywords={DECLARE, LOOP, TYPE, FOR, IF, IS, OPEN, FETCH, DBMS_OUTPUT, PUT_LINE}]
+SQL> select * from temp;
+
+  NUM_COL1   NUM_COL2 CHAR_COL
+---------- ---------- -------------------------------------------------------
+      2975	 7566 JONES
+      2650	 7654 MARTIN
+      2850	 7698 BLAKE
+      2450	 7782 CLARK
+      3000	 7788 SCOTT
+      5000	 7839 KING
+      3000	 7902 FORD
+      2200	 7000 Zangla
 \end{lstlisting}
 
 \subsection{Exercice 5}
@@ -192,7 +229,6 @@ BEGIN
 		FETCH c INTO salaire, nom, empno, mgrEmp;
 		EXIT WHEN(c%NOTFOUND);
 		IF salaire >= 4000 THEN
-			DBMS_OUTPUT.PUT_LINE('Salaire: ' || salaire || ' Nom: ' || nom || ' no: ' || empno || ' mgr: ' || mgrEmp);
 			SELECT mgr INTO chaineMgr FROM emp WHERE empno=7902;
 			LOOP
 				EXIT WHEN(chaineMgr IS NULL OR chaineMgr=mgrEmp);
@@ -210,6 +246,11 @@ END;
 Résultat :
 \begin{lstlisting}[language=SQL,
     morekeywords={DECLARE, LOOP, TYPE, FOR, IF, IS, OPEN, FETCH, DBMS_OUTPUT, PUT_LINE}]
+SQL> select * from temp;
+
+  NUM_COL1   NUM_COL2 CHAR_COL
+---------- ---------- -------------------------------------------------------
+		 5000 KING
 \end{lstlisting}
 
 \newpage

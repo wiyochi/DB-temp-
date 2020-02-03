@@ -11,7 +11,6 @@ BEGIN
 		FETCH c INTO salaire, nom, empno, mgrEmp;
 		EXIT WHEN(c%NOTFOUND);
 		IF salaire >= 4000 THEN
-			DBMS_OUTPUT.PUT_LINE('Salaire: ' || salaire || ' Nom: ' || nom || ' no: ' || empno || ' mgr: ' || mgrEmp);
 			SELECT mgr INTO chaineMgr FROM emp WHERE empno=7902;
 			LOOP
 				EXIT WHEN(chaineMgr IS NULL OR chaineMgr=mgrEmp);

@@ -1,0 +1,32 @@
+SQL> select * from salintervalle_f2;
+
+JOB		LSAL	   HSAL
+--------- ---------- ----------
+ANALYST 	2500	   3000
+CLERK		 900	   1300
+MANAGER 	2400	   3000
+PRESIDENT	4500	   4900
+SALESMAN	1200	   1700
+
+SQL> variable vrai number;
+SQL> execute :vrai := salok_zangla('ANALYST', 2900);
+
+Procedure PL/SQL terminee avec succes.
+
+SQL> print vrai;
+
+      VRAI
+----------
+	 1
+SQL> variable faux number;
+SQL> execute :faux := salok_zangla('PRESIDENT', 4000);
+
+Procedure PL/SQL terminee avec succes.
+
+SQL> print faux;
+
+      FAUX
+----------
+	 0
+
+

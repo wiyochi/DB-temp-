@@ -8,8 +8,8 @@ BEGIN
 	OPEN c;
 	LOOP
 		FETCH c INTO salaire, comm, numero, nom;
-		INSERT INTO temp VALUES (salaire + comm, numero, nom);
 		EXIT WHEN (c%notfound);
+		INSERT INTO temp VALUES (salaire + comm, numero, nom);
 	END LOOP;
 END;
 /

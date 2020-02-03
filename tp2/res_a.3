@@ -1,0 +1,25 @@
+SQL> select * from emp where empno=7876;
+
+     EMPNO ENAME      JOB	       MGR HIREDATE	   SAL	     COMM     DEPTNO
+---------- ---------- --------- ---------- -------- ---------- ---------- ----------
+      7876 ADAMS      CLERK	      7788 13/07/87	  1100			  20
+
+SQL> execute raisesalary_zangla(7876, 100);
+
+SQL> select * from emp where empno=7876;
+
+     EMPNO ENAME      JOB	       MGR HIREDATE	   SAL	     COMM     DEPTNO
+---------- ---------- --------- ---------- -------- ---------- ---------- ----------
+      7876 ADAMS      CLERK	      7788 13/07/87	  1200			  20
+
+SQL> execute raisesalary_zangla(7876, 500);
+BEGIN raisesalary_zangla(7876, 500); END;
+
+*
+ERREUR a la ligne 1 :
+ORA-20002: Maximum deja atteint
+ORA-06512: a "BD10.RAISESALARY_ZANGLA", ligne 13
+ORA-06512: a ligne 1
+
+
+

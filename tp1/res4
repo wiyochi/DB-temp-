@@ -1,0 +1,12 @@
+SQL> select * from temp;
+
+  NUM_COL1   NUM_COL2 CHAR_COL
+---------- ---------- -------------------------------------------------------
+      2975	 7566 JONES
+      2650	 7654 MARTIN
+      2850	 7698 BLAKE
+      2450	 7782 CLARK
+      3000	 7788 SCOTT
+      5000	 7839 KING
+      3000	 7902 FORD
+      2200	 7000 Zangla

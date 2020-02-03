@@ -1,0 +1,15 @@
+SQL> select * from temp;
+
+  NUM_COL1   NUM_COL2 CHAR_COL
+---------- ---------- -------------------------------------------------------
+		 5000 KING
+	 1	  100 1 est impair
+	 2	  200 2 est pair
+	 3	  300 3 est impair
+	 4	  400 4 est pair
+	 5	  500 5 est impair
+	 6	  600 6 est pair
+	 7	  700 7 est impair
+	 8	  800 8 est pair
+	 9	  900 9 est impair
+	10	 1000 10 est pair
