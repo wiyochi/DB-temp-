@@ -1,6 +1,6 @@
 DECLARE
-	Cursor c IS SELECT table_name FROM user_tables WHERE table_name NOT LIKE '%_old';
-	Cursor cold IS SELECT table_name FROM user_tables WHERE table_name LIKE '%_old';
+	Cursor c IS SELECT table_name FROM user_tables WHERE table_name NOT LIKE '%_OLD';
+	Cursor cold IS SELECT table_name FROM user_tables WHERE table_name LIKE '%_OLD';
 	t_name user_tables.table_name%TYPE;
 BEGIN
 	OPEN cold;
